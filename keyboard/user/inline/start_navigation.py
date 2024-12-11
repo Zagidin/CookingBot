@@ -23,7 +23,7 @@ btn3 = InlineKeyboardButton(
 
 btn4 = InlineKeyboardButton(
     text="Статус Заказа ⌛",
-    callback_data="order_state"
+    callback_data="order_status"
 )
 
 navigate.add(btn1)

@@ -91,5 +91,4 @@ async def reg_admin_phone_and_id(msg: Message, state: FSMContext):
     try:
         for i in range(msg.message_id, 0, -1):
             await dp.bot.delete_message(msg.from_user.id, i)
-    except:
-        ...
+    except: ...

@@ -27,8 +27,15 @@ async def start_bot(msg: Message):
                  "чтобы начать регистрацию 😉"
         )
     else:
+
+        # Очистка сообщений
+        try:
+            for i in range(msg.message_id, 0, -1):
+                await dp.bot.delete_message(msg.from_user.id, i)
+        except: ...
+
         await msg.answer(
-            text="Добро пожаловать в Пекарню Zaga 🙌\n"
-                 "\n⚡ Навигация ⚡",
+            text="⚡ <b>Навигация</b> ⚡",
+            parse_mode="HTML",
             reply_markup=navigate
         )

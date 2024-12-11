@@ -57,7 +57,7 @@ async def reg_user_phone_and_id(msg: Message, state: FSMContext):
     )
 
     await msg.answer(
-        text="Добро пожаловать в Пекарню Zaga 🙌\n"
+        text="Добро пожаловать в Пекарню -< ZAGA >- 🙌\n"
              "\n⚡ Навигация ⚡",
         reply_markup=navigate
     )

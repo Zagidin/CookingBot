@@ -22,6 +22,15 @@ engine = create_engine(getenv("DATABASE_URL"))
 Base = declarative_base()
 
 
+class Admin(Base):
+    __tablename__ = 'admin'
+
+    id = Column(Integer, primary_key=True)
+    admin_name = Column(String, nullable=False)
+    admin_phone = Column(String, nullable=False)
+    admin_tg_id = Column(Integer, nullable=False)
+
+
 class User(Base):
     __tablename__ = 'user'
 
@@ -41,8 +50,21 @@ class Product(Base):
     name = Column(String, nullable=False)
     description = Column(String, nullable=True)
     price = Column(Float, nullable=False)
+    photo = Column(String, nullable=True)
+    category_id = Column(Integer, ForeignKey('category.id'), nullable=False)
+
+    category = relationship("Category", back_populates="products")
     baskets = relationship("Basket", back_populates="product")
     order_items = relationship("OrderItem", back_populates="product")
+
+
+class Category(Base):
+    __tablename__ = 'category'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String, unique=True, nullable=False)
+
+    products = relationship("Product", back_populates="category")
 
 
 class Basket(Base):
@@ -55,15 +77,6 @@ class Basket(Base):
 
     user = relationship("User", back_populates="baskets")
     product = relationship("Product", back_populates="baskets")
-
-
-class Admin(Base):
-    __tablename__ = 'admin'
-
-    id = Column(Integer, primary_key=True)
-    admin_name = Column(String, nullable=False)
-    admin_phone = Column(String, nullable=False)
-    admin_tg_id = Column(Integer, nullable=False)
 
 
 class Order(Base):
