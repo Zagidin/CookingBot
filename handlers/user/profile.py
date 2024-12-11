@@ -26,7 +26,7 @@ async def user_profile(msg: Message):
             await msg.answer(
                 text=f"⚡ Профиль ⚡\n\n"
                      f" 👤 Имя: <a href='https://t.me/{username}'>{user_name}</a>\n"
-                     f" 📱 Телефон: {user_phone}\n"
+                     f" 📱 Телефон: +{user_phone}\n"
                      f" 💬 Telegram: @{username}",
                 parse_mode="HTML"
             )

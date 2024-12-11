@@ -27,13 +27,13 @@ async def bot_admin_support(msg: Message):
             await msg.answer(
                 text=f"⚡ Администратор Пекарни ⚡\n\n"
                      f" 🚩 Имя: <a href='https://t.me/{username}'>{admin[0]}</a>\n"
-                     f" ☎ Телефон: {admin[1]}\n",
+                     f" ☎ Телефон: +{admin[1]}\n",
                 parse_mode="HTML"
             )
     else:
         await msg.answer(
             text=f"🚩 Администратор не найден 🚩\n\n"
                  f"🤖 <i><b>Нет информации об админе, похоже админ не был зарегистрирован</b></i> ❌\n\n"
-                 f"☎ Номер Горячей Линии: {getenv('ADMIN_PHONE_SUPPORT')}",
+                 f"☎ Номер Горячей Линии: +{getenv('ADMIN_PHONE_SUPPORT')}",
             parse_mode="HTML"
         )
