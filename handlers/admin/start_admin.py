@@ -45,6 +45,8 @@ async def admin_start_registration(msg: Message):
                 reply_markup=passwd_start
             )
 
+    session.close()
+
 
 @dp.message_handler(state=RegistrationAdmin.admin_name)
 async def reg_admin_name(msg: Message, state: FSMContext):
@@ -79,6 +81,7 @@ async def reg_admin_phone_and_id(msg: Message, state: FSMContext):
     )
     session.add(admin)
     session.commit()
+    session.close()
 
     await msg.answer("✅")
     await msg.answer(

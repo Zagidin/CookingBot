@@ -75,3 +75,4 @@ async def reg_user_phone_and_id(msg: Message, state: FSMContext):
     )
     session.add(user)
     session.commit()
+    session.close()
