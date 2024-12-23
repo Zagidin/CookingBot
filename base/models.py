@@ -1,5 +1,4 @@
 from os import getenv
-from datetime import datetime
 from dotenv import load_dotenv
 from sqlalchemy import (
     Column,
@@ -7,7 +6,6 @@ from sqlalchemy import (
     String,
     ForeignKey,
     Float,
-    DateTime,
     create_engine
 )
 from sqlalchemy.orm import relationship
@@ -54,7 +52,6 @@ class Product(Base):
 
     category = relationship("Category", back_populates="products")
     baskets = relationship("Basket", back_populates="product")
-    order_items = relationship("OrderItem", back_populates="product")
 
 
 class Category(Base):
@@ -88,19 +85,5 @@ class Order(Base):
     delivery_time = Column(String, nullable=False)
     total_price = Column(Float, nullable=False)
     status = Column(String, default="Готовится")  # 'Готовится', 'Готов', 'Едет к вам'
-    created_at = Column(DateTime, default=datetime.utcnow)
 
     user = relationship("User", back_populates="orders")
-    order_items = relationship("OrderItem", back_populates="order")
-
-
-class OrderItem(Base):
-    __tablename__ = 'order_item'
-
-    id = Column(Integer, primary_key=True)
-    order_id = Column(Integer, ForeignKey('order.id'), nullable=False)
-    product_id = Column(Integer, ForeignKey('product.id'), nullable=False)
-    quantity = Column(Integer, nullable=False)
-
-    order = relationship("Order", back_populates="order_items")
-    product = relationship("Product", back_populates="order_items")

@@ -10,8 +10,12 @@ async def user_basket(callback: CallbackQuery):
     await callback.bot.send_photo(
         chat_id=callback.from_user.id,
         photo=logo_basket,
-        caption="⚡ Корзина Товаров ⚡\n\n<i>Вернуться на главную</i> - /<b>nav</b> \n<i>или пропишите</i> /<b>навигация</b>",
+        caption="⚡ Корзина Товаров ⚡\n\n<i>Вернуться на главную</i> - /<b>nav</b> \n"
+                "<i>или пропишите</i> /<b>навигация</b>",
         parse_mode="HTML"
     )
 
-    await callback.bot.send_message(chat_id=callback.from_user.id, text="В РАЗРАБОТКЕ, СКОРО БУДЕТ !")
+    await callback.bot.send_message(
+        chat_id=callback.from_user.id,
+        text="В РАЗРАБОТКЕ, СКОРО БУДЕТ !"
+    )

@@ -3,6 +3,9 @@ from base.base import SessionLocal
 from aiogram.types import InputFile
 from aiogram.types import CallbackQuery
 from base.models import Category, Product
+from keyboard.user.inline.korzina import basket
+from keyboard.user.inline.home_navigate import home_navigate_user
+
 
 
 @dp.callback_query_handler(text="sladkoe")
@@ -23,14 +26,27 @@ async def menu_category_flour(callback: CallbackQuery):
     )
 
     if not products_sweet:
+
+        await callback.bot.delete_message(
+            chat_id=callback.from_user.id,
+            message_id=callback.message.message_id
+        )
+
         await callback.bot.send_message(
             chat_id=callback.from_user.id,
             text="Список Товаров пуст ❌\n\n"
-                 "🤖 Владелец пока не добавил ни одного товара 🚩"
+                 "🤖 Владелец пока не добавил ни одного товара 🚩",
+            reply_markup=home_navigate_user
         )
 
         session.close()
     else:
+
+        await callback.bot.delete_message(
+            chat_id=callback.from_user.id,
+            message_id=callback.message.message_id
+        )
+
         await callback.bot.send_message(
             callback.from_user.id,
             text="⚡ СЛАДКИЙ ОТДЕЛ ⚡"
@@ -49,7 +65,8 @@ async def menu_category_flour(callback: CallbackQuery):
                     caption=f"🥐 Название продукта: {product[0]}\n"
                             f"\nОписание:\n\n"
                             f" {product[1]}\n\n"
-                            f" 💰 Цена: {product[2]}"
+                            f" 💰 Цена: {product[2]}",
+                    reply_markup=basket
                 )
             except Exception as e:
                 print(f"Ошибка отправки фото: {e}")
@@ -61,3 +78,5 @@ async def menu_category_flour(callback: CallbackQuery):
                          f"Цена: {product[2]}\n\n"
                          f"❌ Фото недоступно"
                 )
+
+        await callback.message.answer(text="⚡ Навигация ⚡", reply_markup=home_navigate_user)

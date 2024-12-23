@@ -2,6 +2,7 @@ from bot.bot import dp
 from base.models import User
 from aiogram.types import Message
 from base.base import SessionLocal
+from keyboard.user.inline.orders import order
 
 
 @dp.message_handler(commands=["profile", "профиль"])
@@ -28,7 +29,8 @@ async def user_profile(msg: Message):
                      f" 👤 Имя: <a href='https://t.me/{username}'>{user_name}</a>\n"
                      f" 📱 Телефон: +{user_phone}\n"
                      f" 💬 Telegram: @{username}",
-                parse_mode="HTML"
+                parse_mode="HTML",
+                reply_markup=order
             )
     else:
         await msg.answer(
