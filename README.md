@@ -1,20 +1,39 @@
-
 # Телеграм Бот - Онлайн Пекарня
 
 ---
 
-### Стек
+### Стек используемый при разработке бота
 [![Python Version](https://img.shields.io/badge/Python-3.10-green)](https://www.python.org/downloads/release/python-3100/) [![Aiogram Version](https://img.shields.io/badge/Aiogram-2.23.1-red)](https://piwheels.org/project/aiogram/) [![Sqlalchemy Version](https://img.shields.io/badge/SQLachemy-blue)](https://piwheels.org/project/aiogram/)
 
 ---
 
-## Установка нужных библиотек
+## Настройка проекта перед запуском
+### 🚩 Создание и активация виртуального окружения 🚩
 
+## Windows
+```shell
+  python -m venv .venv
+```
+
+```shell
+  .venv/Scripts/activate
+```
+
+## Linux
+```shell
+  python3 -m venv .venv
+```
+
+```shell
+  source .venv/bin/activate
+```
+
+---
+
+## Установка нужных библиотек
 ```shell
    pip install -r requirements.txt
 ```
-
-***
 
 ---
 
