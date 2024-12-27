@@ -2,7 +2,7 @@
 
 ---
 
-### Стек используемый при разработке бота
+### Стек разработки бота
 [![Python Version](https://img.shields.io/badge/Python-3.10-green)](https://www.python.org/downloads/release/python-3100/) [![Aiogram Version](https://img.shields.io/badge/Aiogram-2.23.1-red)](https://pypi.org/project/aiogram/2.23.1/) [![Sqlalchemy Version](https://img.shields.io/badge/SQLachemy-blue)](https://www.sqlalchemy.org/)
 
 ---
