@@ -3,7 +3,7 @@ from base.base import SessionLocal
 from aiogram.types import InputFile
 from aiogram.types import CallbackQuery
 from base.models import Category, Product
-from keyboard.user.inline.korzina import basket
+from keyboard.user.inline.korzina import add_product_basket_generate
 from keyboard.user.inline.home_navigate import home_navigate_user
 
 
@@ -13,6 +13,7 @@ async def menu_category_flour(callback: CallbackQuery):
 
     products = (
         session.query(
+            Product.id,
             Product.name,
             Product.description,
             Product.price,
@@ -53,18 +54,18 @@ async def menu_category_flour(callback: CallbackQuery):
         await callback.answer(text="⚡ МУЧНОЙ ОТДЕЛ ⚡")
 
         for product in products:
-            open_photo_product_flour = f"{product[3]}"
+            open_photo_product_flour = f"{product[4]}"
 
             try:
                 photo = InputFile(open_photo_product_flour)
                 await callback.bot.send_photo(
                     chat_id=callback.from_user.id,
                     photo=photo,
-                    caption=f"🍞 Название продукта: {product[0]}\n"
+                    caption=f"🍞 Название продукта: {product[1]}\n"
                             f"\nОписание:\n\n"
-                            f" {product[1]}\n\n"
-                            f" 💰 Цена: {product[2]}",
-                    reply_markup=basket
+                            f" {product[2]}\n\n"
+                            f" 💰 Цена: {product[3]}",
+                    reply_markup=add_product_basket_generate(product[0])
                 )
             except Exception as e:
                 print(f"Ошибка отправки фото: {e}")

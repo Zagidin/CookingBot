@@ -9,6 +9,14 @@ from aiogram.types import CallbackQuery
 
 @dp.callback_query_handler(lambda c: c.data.startswith("delete_product_in_category:"))
 async def delete_product(call: CallbackQuery):
+    """
+        🚩 Чтобы удалялся товар, нужно прописать проверку,
+            существует ли этот товар в корзине,
+                Если Истина, то удалить товар с Корзины и уже Потом с БД -> Продукта 🚩
+
+        🚩 УДАЛИТЬ СООБЩЕНИЕ В main.py ПОСЛЕ ИСПРАВЛЕНИЯ 🚩
+    """
+
     session: Session = SessionLocal()
 
     try:
