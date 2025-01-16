@@ -1,9 +1,11 @@
+from os import remove
 from bot.bot import dp
 from base.models import Product
 from sqlalchemy.orm import Session
 from base.base import SessionLocal
 from sqlalchemy.exc import NoResultFound
 from aiogram.types import CallbackQuery
+
 
 @dp.callback_query_handler(lambda c: c.data.startswith("delete_product_in_category:"))
 async def delete_product(call: CallbackQuery):
@@ -16,11 +18,14 @@ async def delete_product(call: CallbackQuery):
             Product.id == product_id
         ).one_or_none()
 
+        remove(product.photo)
+
         if product:
             session.delete(product)
             session.commit()
             await call.message.answer("✅")
             await call.message.answer(f"Товар успешно удалён ✅")
+
         else:
             await call.message.answer(f"Товар с ID {product_id} не найден.")
     except NoResultFound:
