@@ -1,5 +1,6 @@
 from bot.bot import dp
 from aiogram.types import CallbackQuery
+from keyboard.admin.inline.delete_product_category import product_category
 
 
 @dp.callback_query_handler(text="delete_product")
@@ -10,7 +11,8 @@ async def delete_product(callback: CallbackQuery):
     """
 
     await callback.message.answer(
-        text="Удаление продукта из Пекарни - В разработке"
+        text="Выберите Категорию продукции 👇",
+        reply_markup=product_category
     )
 
     await callback.answer(
