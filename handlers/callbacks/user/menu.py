@@ -23,3 +23,16 @@ async def look_menu(callback: CallbackQuery):
         ),
         reply_markup=manu_nav
     )
+
+    # Очистка всех предыдущих сообщений бота
+    try:
+        for message_id in range(callback.message.message_id - 1, 0, -1):
+            try:
+                await callback.bot.delete_message(
+                    chat_id=callback.from_user.id,
+                    message_id=message_id
+                )
+            except Exception:
+                pass
+    except Exception as e:
+        print(f"Ошибка при очистке сообщений: {e}")

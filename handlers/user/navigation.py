@@ -14,7 +14,10 @@ async def main_navigate(msg: Message):
 
     # Очистка сообщений
     try:
-        for i in range(msg.message_id, 0, -1):
-            await dp.bot.delete_message(msg.from_user.id, i)
-    except:
-        ...
+        for message_id in range(msg.message_id, 0, -1):
+            try:
+                await dp.bot.delete_message(chat_id=msg.chat.id, message_id=message_id)
+            except Exception:
+                pass
+    except Exception as e:
+        print(f"Ошибка при очистке сообщений: {e}")

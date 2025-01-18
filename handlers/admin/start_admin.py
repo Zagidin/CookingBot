@@ -27,6 +27,13 @@ async def admin_start_registration(msg: Message):
         )
         await msg.answer(text="Введите Ваше имя 🚩")
 
+        # Очистка сообщений
+        try:
+            for message_id in range(msg.message_id, 0, -1):
+                await dp.bot.delete_message(chat_id=msg.chat.id, message_id=message_id)
+        except:
+            pass
+
         await RegistrationAdmin.admin_name.set()
     else:
         admin = [admin_tg_id[0] for admin_tg_id in session.query(Admin.admin_tg_id).all()]
@@ -36,6 +43,13 @@ async def admin_start_registration(msg: Message):
                 text="Панель Администратора\n\nДоступные Функции 🧰",
                 reply_markup=home_nav_admin
             )
+
+            # Очистка сообщений
+            try:
+                for message_id in range(msg.message_id, 0, -1):
+                    await dp.bot.delete_message(chat_id=msg.chat.id, message_id=message_id)
+            except:
+                pass
         else:
             await msg.answer("❌")
             await msg.answer(
@@ -44,6 +58,13 @@ async def admin_start_registration(msg: Message):
                 parse_mode='HTML',
                 reply_markup=passwd_start
             )
+
+            # Очистка сообщений
+            try:
+                for message_id in range(msg.message_id, 0, -1):
+                    await dp.bot.delete_message(chat_id=msg.chat.id, message_id=message_id)
+            except:
+                pass
 
     session.close()
 
@@ -92,6 +113,7 @@ async def reg_admin_phone_and_id(msg: Message, state: FSMContext):
 
     # Очистка сообщений
     try:
-        for i in range(msg.message_id, 0, -1):
-            await dp.bot.delete_message(msg.from_user.id, i)
-    except: ...
+        for message_id in range(msg.message_id, 0, -1):
+            await dp.bot.delete_message(chat_id=msg.chat.id, message_id=message_id)
+    except Exception as e:
+        pass
