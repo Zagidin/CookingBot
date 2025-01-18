@@ -69,7 +69,7 @@ async def menu_category_flour(callback: CallbackQuery):
                     reply_markup=add_product_basket_generate(product[0])
                 )
             except Exception as e:
-                await callback.bot.send_message(f"Ошибка отправки фото: {e}")
+                print(f"Ошибка отправки фото: {e}")
                 await callback.bot.send_message(
                     callback.from_user.id,
                     text=f"Название продукта: {product[0]}\n"

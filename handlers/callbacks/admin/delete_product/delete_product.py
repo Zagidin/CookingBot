@@ -1,10 +1,10 @@
 from os import remove
 from bot.bot import dp
-from sqlalchemy.orm import Session
 from base.base import SessionLocal
 from base.models import Product, Basket
-from sqlalchemy.exc import NoResultFound
 from aiogram.types import CallbackQuery
+from sqlalchemy.exc import NoResultFound
+from sqlalchemy.orm import Session
 
 
 @dp.callback_query_handler(lambda c: c.data.startswith("delete_product_in_category:"))
