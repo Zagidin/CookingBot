@@ -66,7 +66,7 @@ async def menu_category_flour(callback: CallbackQuery):
                     caption=f"🥐 Название продукта: {product[1]}\n"
                             f"\nОписание:\n\n"
                             f" {product[2]}\n\n"
-                            f" 💰 Цена: {product[3]}",
+                            f" 💰 Цена: {product[3]} ₽",
                     reply_markup=add_product_basket_generate(product[0])
                 )
             except Exception as e:

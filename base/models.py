@@ -34,7 +34,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     user_name = Column(String, nullable=False)
     user_phone = Column(String, nullable=True)
-    user_tg_id = Column(String, nullable=False)
+    user_tg_id = Column(Integer, nullable=False)
 
     baskets = relationship("Basket", back_populates="user")
     orders = relationship("Order", back_populates="user")
