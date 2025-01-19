@@ -11,7 +11,7 @@ async def home_user_navigate(callback: CallbackQuery):
         message_id=callback.message.message_id,
         text="⚡ <b>Навигация</b> ⚡",
         parse_mode="HTML",
-        reply_markup=navigate
+        reply_markup=navigate,
     )
 
     # Очистка всех предыдущих сообщений бота
@@ -19,8 +19,7 @@ async def home_user_navigate(callback: CallbackQuery):
         for message_id in range(callback.message.message_id - 1, 0, -1):
             try:
                 await callback.bot.delete_message(
-                    chat_id=callback.from_user.id,
-                    message_id=message_id
+                    chat_id=callback.from_user.id, message_id=message_id
                 )
             except Exception:
                 pass

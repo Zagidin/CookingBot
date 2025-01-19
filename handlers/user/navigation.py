@@ -7,9 +7,7 @@ from keyboard.user.inline.start_navigation import navigate
 async def main_navigate(msg: Message):
 
     await msg.answer(
-        text="⚡ <b>Навигация</b> ⚡",
-        parse_mode="HTML",
-        reply_markup=navigate
+        text="⚡ <b>Навигация</b> ⚡", parse_mode="HTML", reply_markup=navigate
     )
 
     # Очистка сообщений

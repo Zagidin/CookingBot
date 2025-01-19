@@ -1,9 +1,5 @@
 from bot.bot import dp
-from aiogram.types import (
-    Message,
-    ContentType,
-    ReplyKeyboardRemove
-)
+from aiogram.types import Message, ContentType, ReplyKeyboardRemove
 from base.models import Admin
 from base.base import SessionLocal
 from aiogram.dispatcher import FSMContext
@@ -23,7 +19,7 @@ async def admin_start_registration(msg: Message):
     if not admin:
         await msg.answer(
             text=f"👋 @{msg.from_user.username}\n"
-                 f"\nДля Входа в Административную часть, Вам необходимо Зарегистрироваться ✍"
+            f"\nДля Входа в Административную часть, Вам необходимо Зарегистрироваться ✍"
         )
         await msg.answer(text="Введите Ваше имя 🚩")
 
@@ -36,33 +32,39 @@ async def admin_start_registration(msg: Message):
 
         await RegistrationAdmin.admin_name.set()
     else:
-        admin = [admin_tg_id[0] for admin_tg_id in session.query(Admin.admin_tg_id).all()]
+        admin = [
+            admin_tg_id[0] for admin_tg_id in session.query(Admin.admin_tg_id).all()
+        ]
         if msg.from_user.id in admin:
             await msg.answer("👋", reply_markup=ReplyKeyboardRemove())
             await msg.answer(
                 text="Панель Администратора\n\nДоступные Функции 🧰",
-                reply_markup=home_nav_admin
+                reply_markup=home_nav_admin,
             )
 
             # Очистка сообщений
             try:
                 for message_id in range(msg.message_id, 0, -1):
-                    await dp.bot.delete_message(chat_id=msg.chat.id, message_id=message_id)
+                    await dp.bot.delete_message(
+                        chat_id=msg.chat.id, message_id=message_id
+                    )
             except:
                 pass
         else:
             await msg.answer("❌")
             await msg.answer(
                 text="У Вас нет прав к Доступу Админ панели! ❌\n\n"
-                     "Попробуйте Войти ПАРОЛЕМ - <i>Выдаётся Администратором</i>",
-                parse_mode='HTML',
-                reply_markup=passwd_start
+                "Попробуйте Войти ПАРОЛЕМ - <i>Выдаётся Администратором</i>",
+                parse_mode="HTML",
+                reply_markup=passwd_start,
             )
 
             # Очистка сообщений
             try:
                 for message_id in range(msg.message_id, 0, -1):
-                    await dp.bot.delete_message(chat_id=msg.chat.id, message_id=message_id)
+                    await dp.bot.delete_message(
+                        chat_id=msg.chat.id, message_id=message_id
+                    )
             except:
                 pass
 
@@ -76,14 +78,15 @@ async def reg_admin_name(msg: Message, state: FSMContext):
         data["admin_name"] = msg.text
 
     await msg.answer(
-        text="Теперь поделитесь Вашим номером телефона 📱",
-        reply_markup=phone
+        text="Теперь поделитесь Вашим номером телефона 📱", reply_markup=phone
     )
 
     await RegistrationAdmin.admin_phone.set()
 
 
-@dp.message_handler(state=RegistrationAdmin.admin_phone, content_types=ContentType.CONTACT)
+@dp.message_handler(
+    state=RegistrationAdmin.admin_phone, content_types=ContentType.CONTACT
+)
 async def reg_admin_phone_and_id(msg: Message, state: FSMContext):
     session = SessionLocal()
 
@@ -96,9 +99,9 @@ async def reg_admin_phone_and_id(msg: Message, state: FSMContext):
     await state.finish()
 
     admin = Admin(
-        admin_name=data['admin_name'],
-        admin_phone=str(data['admin_phone']),
-        admin_tg_id=data['admin_tg_id'],
+        admin_name=data["admin_name"],
+        admin_phone=str(data["admin_phone"]),
+        admin_tg_id=data["admin_tg_id"],
     )
     session.add(admin)
     session.commit()
@@ -107,8 +110,8 @@ async def reg_admin_phone_and_id(msg: Message, state: FSMContext):
     await msg.answer("✅")
     await msg.answer(
         text="Вы успешно зарегистрировались в роли Администратора!\n\n"
-             "Доступные Функции 🧰",
-        reply_markup=home_nav_admin
+        "Доступные Функции 🧰",
+        reply_markup=home_nav_admin,
     )
 
     # Очистка сообщений

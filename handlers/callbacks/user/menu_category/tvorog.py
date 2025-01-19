@@ -14,11 +14,7 @@ async def menu_category_flour(callback: CallbackQuery):
 
     products_tvg = (
         session.query(
-            Product.id,
-            Product.name,
-            Product.description,
-            Product.price,
-            Product.photo
+            Product.id, Product.name, Product.description, Product.price, Product.photo
         )
         .join(Category)
         .filter(Category.name == "Творожное")
@@ -28,28 +24,25 @@ async def menu_category_flour(callback: CallbackQuery):
     if not products_tvg:
 
         await callback.bot.delete_message(
-            chat_id=callback.from_user.id,
-            message_id=callback.message.message_id
+            chat_id=callback.from_user.id, message_id=callback.message.message_id
         )
 
         await callback.bot.send_message(
             chat_id=callback.from_user.id,
             text="Список Товаров пуст ❌\n\n"
-                 "🤖 Владелец пока не добавил ни одного товара 🚩",
-            reply_markup=home_navigate_user
+            "🤖 Владелец пока не добавил ни одного товара 🚩",
+            reply_markup=home_navigate_user,
         )
 
         session.close()
     else:
 
         await callback.bot.delete_message(
-            chat_id=callback.from_user.id,
-            message_id=callback.message.message_id
+            chat_id=callback.from_user.id, message_id=callback.message.message_id
         )
 
         await callback.bot.send_message(
-            chat_id=callback.from_user.id,
-            text="⚡ СЛАДКИЙ ОТДЕЛ ⚡"
+            chat_id=callback.from_user.id, text="⚡ СЛАДКИЙ ОТДЕЛ ⚡"
         )
 
         await callback.answer("⚡ СЛАДКИЙ ОТДЕЛ ⚡")
@@ -63,20 +56,22 @@ async def menu_category_flour(callback: CallbackQuery):
                     callback.from_user.id,
                     photo=photo_sweet_product,
                     caption=f"🥧 Название продукта: {product[1]}\n"
-                            f"\nОписание:\n\n"
-                            f" {product[2]}\n\n"
-                            f" 💰 Цена: {product[3]} ₽",
-                    reply_markup=add_product_basket_generate(product[0])
+                    f"\nОписание:\n\n"
+                    f" {product[2]}\n\n"
+                    f" 💰 Цена: {product[3]} ₽",
+                    reply_markup=add_product_basket_generate(product[0]),
                 )
             except Exception as e:
                 print(f"Ошибка отправки фото: {e}")
                 await callback.bot.send_message(
                     callback.from_user.id,
                     text=f"Название продукта: {product[0]}\n"
-                         f"\nОписание:\n"
-                         f"{product[1]}\n\n"
-                         f"Цена: {product[2]}\n\n"
-                         f"❌ Фото недоступно"
+                    f"\nОписание:\n"
+                    f"{product[1]}\n\n"
+                    f"Цена: {product[2]}\n\n"
+                    f"❌ Фото недоступно",
                 )
 
-        await callback.message.answer(text="⚡ Навигация ⚡", reply_markup=home_navigate_user)
+        await callback.message.answer(
+            text="⚡ Навигация ⚡", reply_markup=home_navigate_user
+        )

@@ -11,7 +11,7 @@ async def basket(callback: CallbackQuery):
         chat_id=callback.from_user.id,
         text="⚡ Корзина Товаров ⚡",
         parse_mode="HTML",
-        reply_markup=home_navigate_user
+        reply_markup=home_navigate_user,
     )
 
     # Очистка всех предыдущих сообщений бота
@@ -19,8 +19,7 @@ async def basket(callback: CallbackQuery):
         for message_id in range(callback.message.message_id - 1, 0, -1):
             try:
                 await callback.bot.delete_message(
-                    chat_id=callback.from_user.id,
-                    message_id=message_id
+                    chat_id=callback.from_user.id, message_id=message_id
                 )
             except Exception:
                 pass

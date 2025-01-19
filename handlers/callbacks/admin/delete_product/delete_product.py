@@ -15,16 +15,12 @@ async def delete_product(call: CallbackQuery):
     try:
         id_product = int(call.data.split(":")[1])
 
-        product = session.query(Product).filter(
-            Product.id == id_product
-        ).one_or_none()
+        product = session.query(Product).filter(Product.id == id_product).one_or_none()
 
         remove(product.photo)
 
         if product:
-            session.query(Basket).filter(
-                Basket.product_id == id_product
-            ).delete()
+            session.query(Basket).filter(Basket.product_id == id_product).delete()
 
             session.delete(product)
             session.commit()

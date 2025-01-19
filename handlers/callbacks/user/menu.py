@@ -19,9 +19,9 @@ async def look_menu(callback: CallbackQuery):
                 "<i>Вернуться на главную</i> - /<b>nav</b> \n"
                 "<i>или пропишите</i> /<b>навигация</b>"
             ),
-            parse_mode="HTML"
+            parse_mode="HTML",
         ),
-        reply_markup=manu_nav
+        reply_markup=manu_nav,
     )
 
     # Очистка всех предыдущих сообщений бота
@@ -29,8 +29,7 @@ async def look_menu(callback: CallbackQuery):
         for message_id in range(callback.message.message_id - 1, 0, -1):
             try:
                 await callback.bot.delete_message(
-                    chat_id=callback.from_user.id,
-                    message_id=message_id
+                    chat_id=callback.from_user.id, message_id=message_id
                 )
             except Exception:
                 pass

@@ -6,7 +6,7 @@ from keyboard.user.reply.registaration import reg_user
 from keyboard.user.inline.start_navigation import navigate
 
 
-@dp.message_handler(commands=['start', 'старт'])
+@dp.message_handler(commands=["start", "старт"])
 async def start_bot(msg: Message):
 
     session = SessionLocal()
@@ -17,14 +17,14 @@ async def start_bot(msg: Message):
     if not user:
         await msg.answer(
             text=f"👋 Привет, <b>@{msg.from_user.username}</b>\n\n"
-                 f"🤖 Давайте пройдём небольшую регистрацию,\nдля входа в аккаунт 🗝🔓\n"
-                 f"\n<i>ЕСЛИ НЕ ПРОЙТИ РЕГИСТРАЦИЮ, ВЫ НЕ СМОЖЕТЕ ПОЛЬЗОВАТЬСЯ БОТОМ</i>",
-            parse_mode='HTML',
-            reply_markup=reg_user
+            f"🤖 Давайте пройдём небольшую регистрацию,\nдля входа в аккаунт 🗝🔓\n"
+            f"\n<i>ЕСЛИ НЕ ПРОЙТИ РЕГИСТРАЦИЮ, ВЫ НЕ СМОЖЕТЕ ПОЛЬЗОВАТЬСЯ БОТОМ</i>",
+            parse_mode="HTML",
+            reply_markup=reg_user,
         )
         await msg.answer(
             text="Пожалуйста, нажмите на кнопку, которая появилась ниже, "
-                 "чтобы начать регистрацию 😉"
+            "чтобы начать регистрацию 😉"
         )
     else:
 
@@ -32,10 +32,9 @@ async def start_bot(msg: Message):
         try:
             for i in range(msg.message_id, 0, -1):
                 await dp.bot.delete_message(msg.from_user.id, i)
-        except: ...
+        except:
+            ...
 
         await msg.answer(
-            text="⚡ <b>Навигация</b> ⚡",
-            parse_mode="HTML",
-            reply_markup=navigate
+            text="⚡ <b>Навигация</b> ⚡", parse_mode="HTML", reply_markup=navigate
         )

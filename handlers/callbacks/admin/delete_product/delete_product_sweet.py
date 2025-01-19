@@ -20,11 +20,7 @@ async def delete_product_flour(callback: CallbackQuery):
 
     products_sweet = (
         session.query(
-            Product.id,
-            Product.name,
-            Product.description,
-            Product.price,
-            Product.photo
+            Product.id, Product.name, Product.description, Product.price, Product.photo
         )
         .join(Category)
         .filter(Category.name == "Сладкое")
@@ -34,26 +30,22 @@ async def delete_product_flour(callback: CallbackQuery):
     if not products_sweet:
 
         await callback.bot.delete_message(
-            chat_id=callback.from_user.id,
-            message_id=callback.message.message_id
+            chat_id=callback.from_user.id, message_id=callback.message.message_id
         )
 
         await callback.bot.send_message(
-            chat_id=callback.from_user.id,
-            text="Список Товаров пуст ❌"
+            chat_id=callback.from_user.id, text="Список Товаров пуст ❌"
         )
 
         session.close()
     else:
 
         await callback.bot.delete_message(
-            chat_id=callback.from_user.id,
-            message_id=callback.message.message_id
+            chat_id=callback.from_user.id, message_id=callback.message.message_id
         )
 
         await callback.bot.send_message(
-            callback.from_user.id,
-            text="⚡ СЛАДКИЙ ОТДЕЛ ⚡"
+            callback.from_user.id, text="⚡ СЛАДКИЙ ОТДЕЛ ⚡"
         )
 
         await callback.answer(text="⚡ СЛАДКИЙ ОТДЕЛ ⚡")
@@ -67,22 +59,21 @@ async def delete_product_flour(callback: CallbackQuery):
                     callback.from_user.id,
                     photo=photo_sweet_product,
                     caption=f"🥐 Название продукта: {product[1]}\n"
-                            f"\nОписание:\n\n"
-                            f" {product[2]}\n\n"
-                            f" 💰 Цена: {product[3]}",
-                    reply_markup=delete_product_id_generate(product[0])
+                    f"\nОписание:\n\n"
+                    f" {product[2]}\n\n"
+                    f" 💰 Цена: {product[3]}",
+                    reply_markup=delete_product_id_generate(product[0]),
                 )
             except:
                 await callback.bot.send_message(
                     callback.from_user.id,
                     text=f"Название продукта: {product[0]}\n"
-                         f"\nОписание:\n"
-                         f"{product[1]}\n\n"
-                         f"Цена: {product[2]}\n\n"
-                         f"❌ Фото недоступно"
+                    f"\nОписание:\n"
+                    f"{product[1]}\n\n"
+                    f"Цена: {product[2]}\n\n"
+                    f"❌ Фото недоступно",
                 )
 
         await callback.message.answer(
-            text="⚡ Навигация Администратора ⚡",
-            reply_markup=home_nav_admin
+            text="⚡ Навигация Администратора ⚡", reply_markup=home_nav_admin
         )

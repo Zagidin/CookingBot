@@ -1,13 +1,6 @@
 from os import getenv
 from dotenv import load_dotenv
-from sqlalchemy import (
-    Column,
-    Integer,
-    String,
-    ForeignKey,
-    Float,
-    create_engine
-)
+from sqlalchemy import Column, Integer, String, ForeignKey, Float, create_engine
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -20,7 +13,7 @@ Base = declarative_base()
 
 
 class Admin(Base):
-    __tablename__ = 'admin'
+    __tablename__ = "admin"
 
     id = Column(Integer, primary_key=True)
     admin_name = Column(String, nullable=False)
@@ -29,7 +22,7 @@ class Admin(Base):
 
 
 class User(Base):
-    __tablename__ = 'user'
+    __tablename__ = "user"
 
     id = Column(Integer, primary_key=True)
     user_name = Column(String, nullable=False)
@@ -41,21 +34,21 @@ class User(Base):
 
 
 class Product(Base):
-    __tablename__ = 'product'
+    __tablename__ = "product"
 
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     description = Column(String, nullable=True)
     price = Column(Float, nullable=False)
     photo = Column(String, nullable=True)
-    category_id = Column(Integer, ForeignKey('category.id'), nullable=False)
+    category_id = Column(Integer, ForeignKey("category.id"), nullable=False)
 
     category = relationship("Category", back_populates="products")
     baskets = relationship("Basket", back_populates="product")
 
 
 class Category(Base):
-    __tablename__ = 'category'
+    __tablename__ = "category"
 
     id = Column(Integer, primary_key=True)
     name = Column(String, unique=True, nullable=False)
@@ -64,11 +57,11 @@ class Category(Base):
 
 
 class Basket(Base):
-    __tablename__ = 'basket'
+    __tablename__ = "basket"
 
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
-    product_id = Column(Integer, ForeignKey('product.id'), nullable=False)
+    user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
+    product_id = Column(Integer, ForeignKey("product.id"), nullable=False)
     quantity = Column(Integer, default=1)
 
     user = relationship("User", back_populates="baskets")
@@ -76,10 +69,10 @@ class Basket(Base):
 
 
 class Order(Base):
-    __tablename__ = 'order'
+    __tablename__ = "order"
 
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
+    user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
     delivery_type = Column(String, nullable=False)
     address = Column(String, nullable=True, default="Самовывоз")
     delivery_time = Column(String, nullable=False)
